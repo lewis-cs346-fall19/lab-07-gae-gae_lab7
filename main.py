@@ -25,6 +25,7 @@ class MainPage(webapp2.RequestHandler):
                 self.response.write("Click this button to increment your value. <form action='/' method='get'><input type='submit' value='Submit'></form><br> Current value: '"+value+"'<br>")
                 value+=1
                 cursor.execute("INSERT INTO Increments (value) VALUES ('"+value+"')")
+                cursor.commit()
     def post(self):
         username = self.request.POST.get('username')
         self.response.headers["Content-Type"]="text/html"
