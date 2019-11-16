@@ -20,11 +20,8 @@ class MainPage(webapp2.RequestHandler):
             if username==None:
                 self.response.write("You have yet to submit a username associated with your cookie. Click on the button to do so. <br> <form action='/' method='post'><input type='submit' value='Submit'></form>")
             else:
-                cursor.execute("SELECT value FROM Increments WHERE username='"+username+"'")
-                value=cursor.fetchall()
                 self.response.write("Click this button to increment your value. <form action='/' method='get'><input type='submit' value='Submit'></form><br> Current value: '"+value+"'<br>")
-                value+=1
-                cursor.execute("INSERT INTO Increments (value) VALUES ('"+value+"')")
+                cursor.execute("UPDATE Increments SET value=value+1 WHERE user=" + username + ";")
                 cursor.commit()
     def post(self):
         username = self.request.POST.get('username')
